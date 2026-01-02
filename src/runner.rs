@@ -14,7 +14,7 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 use crate::engine::GnumericEngine;
-use crate::types::{extract_skip_cases, extract_test_cases, SkipCase, TestCase, TestResult, TestSpec};
+use crate::types::{extract_skip_cases, extract_table_data_yaml, extract_test_cases, SkipCase, TestCase, TestResult, TestSpec};
 
 /// Test runner for E2E validation.
 pub struct TestRunner {
@@ -93,7 +93,7 @@ impl TestRunner {
                 let content = fs::read_to_string(&path)?;
                 match serde_yaml_ng::from_str::<TestSpec>(&content) {
                     Ok(spec) => {
-                        let cases = extract_test_cases(&spec);
+                        let cases = extract_test_cases(&spec, Some(&path));
                         let skips = extract_skip_cases(&spec);
                         all_cases.extend(cases);
                         all_skips.extend(skips);
@@ -369,9 +369,26 @@ impl TestRunner {
     /// Runs a single test case.
     pub fn run_test(&self, test_case: &TestCase) -> TestResult {
         let escaped_formula = test_case.formula.replace('"', "\\\"");
+
+        // Load table data from source file if available
+        let table_data = if let Some(ref source_path) = test_case.source_file {
+            if let Ok(content) = fs::read_to_string(source_path) {
+                if let Ok(spec) = serde_yaml_ng::from_str::<TestSpec>(&content) {
+                    extract_table_data_yaml(&spec)
+                } else {
+                    String::new()
+                }
+            } else {
+                String::new()
+            }
+        } else {
+            String::new()
+        };
+
+        let forge_version = &test_case.forge_version;
         let yaml_content = format!(
-            r#"_forge_version: "1.0.0"
-assumptions:
+            r#"_forge_version: "{forge_version}"
+{table_data}assumptions:
   test_result:
     value: null
     formula: "{escaped_formula}"
@@ -436,9 +453,9 @@ assumptions:
             };
         }
 
-        // Convert XLSX to CSV using Gnumeric
-        let csv_path = match self.engine.xlsx_to_csv(&xlsx_path, temp_dir.path()) {
-            Ok(p) => p,
+        // Convert XLSX to CSV using Gnumeric (all sheets)
+        let csv_files = match self.engine.xlsx_to_csv_all_sheets(&xlsx_path, temp_dir.path()) {
+            Ok(files) => files,
             Err(e) => {
                 return TestResult::Fail {
                     name: test_case.name.clone(),
@@ -450,33 +467,36 @@ assumptions:
             }
         };
 
-        // Parse CSV and find result
-        match Self::find_result_in_csv(&csv_path, test_case.expected) {
-            Ok(actual) => {
-                if (actual - test_case.expected).abs() < f64::EPSILON {
-                    TestResult::Pass {
-                        name: test_case.name.clone(),
-                        formula: test_case.formula.clone(),
-                        expected: test_case.expected,
-                        actual,
+        // Search all sheets for the result
+        for csv_path in &csv_files {
+            match Self::find_result_in_csv(csv_path, test_case.expected) {
+                Ok(actual) => {
+                    if (actual - test_case.expected).abs() < f64::EPSILON {
+                        return TestResult::Pass {
+                            name: test_case.name.clone(),
+                            formula: test_case.formula.clone(),
+                            expected: test_case.expected,
+                            actual,
+                        };
                     }
-                } else {
-                    TestResult::Fail {
+                    return TestResult::Fail {
                         name: test_case.name.clone(),
                         formula: test_case.formula.clone(),
                         expected: test_case.expected,
                         actual: Some(actual),
                         error: None,
-                    }
+                    };
                 }
+                Err(_) => continue, // Try next sheet
             }
-            Err(e) => TestResult::Fail {
-                name: test_case.name.clone(),
-                formula: test_case.formula.clone(),
-                expected: test_case.expected,
-                actual: None,
-                error: Some(e),
-            },
+        }
+
+        TestResult::Fail {
+            name: test_case.name.clone(),
+            formula: test_case.formula.clone(),
+            expected: test_case.expected,
+            actual: None,
+            error: Some("Could not find result in any CSV sheet".to_string()),
         }
     }
 

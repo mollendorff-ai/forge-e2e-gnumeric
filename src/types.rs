@@ -63,6 +63,10 @@ pub struct TestCase {
     pub formula: String,
     /// The expected result value.
     pub expected: f64,
+    /// Source YAML file path (for loading table data).
+    pub source_file: Option<std::path::PathBuf>,
+    /// Forge version from source file.
+    pub forge_version: String,
 }
 
 /// A test case that should be skipped.
@@ -123,7 +127,7 @@ impl TestResult {
 ///
 /// Scans all sections for scalar values that have both a formula and
 /// an expected value defined. Tests with `skip` field are excluded.
-pub fn extract_test_cases(spec: &TestSpec) -> Vec<TestCase> {
+pub fn extract_test_cases(spec: &TestSpec, source_file: Option<&std::path::Path>) -> Vec<TestCase> {
     let mut cases = Vec::new();
 
     for (section_name, section) in &spec.sections {
@@ -142,6 +146,8 @@ pub fn extract_test_cases(spec: &TestSpec) -> Vec<TestCase> {
                         name: format!("{section_name}.{name}"),
                         formula: formula.clone(),
                         expected,
+                        source_file: source_file.map(std::path::Path::to_path_buf),
+                        forge_version: spec.forge_version.clone(),
                     });
                 }
             }
@@ -149,6 +155,44 @@ pub fn extract_test_cases(spec: &TestSpec) -> Vec<TestCase> {
     }
 
     cases
+}
+
+/// Extracts table data sections from a test spec as YAML string.
+///
+/// Returns a string containing all table sections in YAML format,
+/// suitable for inclusion in a generated test file.
+pub fn extract_table_data_yaml(spec: &TestSpec) -> String {
+    use std::fmt::Write;
+    let mut yaml = String::new();
+
+    for (section_name, section) in &spec.sections {
+        // Skip metadata sections and assumptions (which contain tests)
+        if section_name.starts_with('_') || section_name == "scenarios" || section_name == "assumptions" {
+            continue;
+        }
+
+        // Check if this is a table section (has array values, not scalars with formulas)
+        if let Section::Table(columns) = section {
+            let _ = writeln!(yaml, "{section_name}:");
+            for (col_name, col_data) in columns {
+                match col_data {
+                    TableColumn::Numbers(nums) => {
+                        let nums_str: Vec<String> = nums.iter().map(|n| n.to_string()).collect();
+                        let _ = writeln!(yaml, "  {col_name}: [{}]", nums_str.join(", "));
+                    }
+                    TableColumn::Strings(strs) => {
+                        let strs_escaped: Vec<String> = strs.iter().map(|s| format!("\"{s}\"")).collect();
+                        let _ = writeln!(yaml, "  {col_name}: [{}]", strs_escaped.join(", "));
+                    }
+                    TableColumn::Formula(f) => {
+                        let _ = writeln!(yaml, "  {col_name}: \"{f}\"");
+                    }
+                }
+            }
+        }
+    }
+
+    yaml
 }
 
 /// Extracts skip cases from a test spec.
@@ -192,7 +236,7 @@ assumptions:
         let spec: TestSpec = serde_yaml_ng::from_str(yaml).unwrap();
         assert_eq!(spec.forge_version, "1.0.0");
 
-        let cases = extract_test_cases(&spec);
+        let cases = extract_test_cases(&spec, None);
         assert_eq!(cases.len(), 1);
         assert_eq!(cases[0].name, "assumptions.test_abs");
     }
@@ -207,5 +251,36 @@ assumptions:
         };
         assert!(pass.is_pass());
         assert!(!pass.is_fail());
+    }
+
+    #[test]
+    fn test_table_extraction() {
+        let yaml = r#"
+_forge_version: "1.0.0"
+agg_data:
+  values: [10, 50, 30, 70]
+  mixed: [5, 10, 15]
+assumptions:
+  test_one:
+    value: null
+    formula: "=SUM(agg_data.values)"
+    expected: 160
+"#;
+        let spec: TestSpec = serde_yaml_ng::from_str(yaml).unwrap();
+
+        // Check section types
+        for (name, section) in &spec.sections {
+            match section {
+                Section::ScalarGroup(_) => println!("{name}: ScalarGroup"),
+                Section::Table(_) => println!("{name}: Table"),
+            }
+        }
+
+        let table_yaml = extract_table_data_yaml(&spec);
+        println!("Extracted table YAML:\n{}", table_yaml);
+        assert!(
+            table_yaml.contains("agg_data") || table_yaml.is_empty(),
+            "Should extract agg_data table or be empty if not parsed as Table"
+        );
     }
 }

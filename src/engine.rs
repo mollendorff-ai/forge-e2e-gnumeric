@@ -47,21 +47,23 @@ impl GnumericEngine {
 
     /// Converts XLSX to CSV with formula recalculation.
     ///
-    /// Uses ssconvert with the `--recalc` flag to ensure all formulas
-    /// are recalculated before export.
+    /// Uses ssconvert with the `--recalc` and `-S` flags to export all sheets
+    /// as separate CSV files. Returns paths to all generated CSV files.
     pub fn xlsx_to_csv(&self, xlsx_path: &Path, output_dir: &Path) -> Result<PathBuf, String> {
-        let csv_name = xlsx_path
+        let base_name = xlsx_path
             .file_stem()
             .ok_or("Invalid xlsx path: no file stem")?
             .to_string_lossy()
-            .to_string()
-            + ".csv";
-        let csv_path = output_dir.join(&csv_name);
+            .to_string();
+
+        // Export all sheets with -S flag, using %n for sheet number
+        let csv_pattern = output_dir.join(format!("{base_name}_%n.csv"));
 
         let output = Command::new(&self.path)
             .arg("--recalc")
+            .arg("-S")
             .arg(xlsx_path)
-            .arg(&csv_path)
+            .arg(&csv_pattern)
             .output()
             .map_err(|e| format!("Failed to run ssconvert: {e}"))?;
 
@@ -72,10 +74,56 @@ impl GnumericEngine {
             ));
         }
 
-        if csv_path.exists() {
-            Ok(csv_path)
+        // Return pattern path - caller will handle finding the right sheet
+        Ok(output_dir.join(format!("{base_name}_")))
+    }
+
+    /// Converts XLSX to CSV files (all sheets) and returns all CSV paths.
+    pub fn xlsx_to_csv_all_sheets(
+        &self,
+        xlsx_path: &Path,
+        output_dir: &Path,
+    ) -> Result<Vec<PathBuf>, String> {
+        let base_name = xlsx_path
+            .file_stem()
+            .ok_or("Invalid xlsx path: no file stem")?
+            .to_string_lossy()
+            .to_string();
+
+        // Export all sheets with -S flag
+        let csv_pattern = output_dir.join(format!("{base_name}_%n.csv"));
+
+        let output = Command::new(&self.path)
+            .arg("--recalc")
+            .arg("-S")
+            .arg(xlsx_path)
+            .arg(&csv_pattern)
+            .output()
+            .map_err(|e| format!("Failed to run ssconvert: {e}"))?;
+
+        if !output.status.success() {
+            return Err(format!(
+                "ssconvert failed: {}",
+                String::from_utf8_lossy(&output.stderr)
+            ));
+        }
+
+        // Find all generated CSV files
+        let mut csv_files = Vec::new();
+        for i in 0..10 {
+            // Check up to 10 sheets
+            let csv_path = output_dir.join(format!("{base_name}_{i}.csv"));
+            if csv_path.exists() {
+                csv_files.push(csv_path);
+            } else {
+                break;
+            }
+        }
+
+        if csv_files.is_empty() {
+            Err("No CSV files generated".to_string())
         } else {
-            Err(format!("CSV file not created: {}", csv_path.display()))
+            Ok(csv_files)
         }
     }
 }
