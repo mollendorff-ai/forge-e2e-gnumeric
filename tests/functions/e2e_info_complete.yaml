@@ -10,21 +10,27 @@ assumptions:
   iseven_true:
     value: null
     formula: "=IF(ISEVEN(4), 1, 0)"        # Expected: 1
+    expected: 1
   iseven_false:
     value: null
     formula: "=IF(ISEVEN(5), 1, 0)"        # Expected: 0
+    expected: 0
   isodd_true:
     value: null
     formula: "=IF(ISODD(5), 1, 0)"         # Expected: 1
+    expected: 1
   isodd_false:
     value: null
     formula: "=IF(ISODD(4), 1, 0)"         # Expected: 0
+    expected: 0
   iseven_zero:
     value: null
     formula: "=IF(ISEVEN(0), 1, 0)"        # Expected: 1
+    expected: 1
   isodd_negative:
     value: null
     formula: "=IF(ISODD(-3), 1, 0)"        # Expected: 1
+    expected: 1
 
   # ═══════════════════════════════════════════════════════════════════════════
   # ISNUMBER / ISTEXT / ISLOGICAL
@@ -32,15 +38,19 @@ assumptions:
   isnumber_true:
     value: null
     formula: "=IF(ISNUMBER(123), 1, 0)"    # Expected: 1
+    expected: 1
   istext_true:
     value: null
     formula: "=IF(ISTEXT(\"abc\"), 1, 0)"  # Expected: 1
+    expected: 1
   islogical_true:
     value: null
     formula: "=IF(ISLOGICAL(TRUE()), 1, 0)"  # Expected: 1
+    expected: 1
   islogical_false_val:
     value: null
     formula: "=IF(ISLOGICAL(FALSE()), 1, 0)" # Expected: 1
+    expected: 1
 
   # ═══════════════════════════════════════════════════════════════════════════
   # ISBLANK - Empty check
@@ -51,6 +61,7 @@ assumptions:
   isblank_number:
     value: null
     formula: "=IF(ISBLANK(0), 1, 0)"       # Expected: 0
+    expected: 0
 
   # ═══════════════════════════════════════════════════════════════════════════
   # ISERROR / ISNA - Error checks
@@ -60,15 +71,19 @@ assumptions:
   iserror_valid_is_not_error:
     value: null
     formula: "=IF(ISERROR(1+1), 1, 0)"     # Expected: 0 (no error)
+    expected: 0
   iserror_number_is_not_error:
     value: null
     formula: "=IF(ISERROR(123), 1, 0)"     # Expected: 0 (no error)
+    expected: 0
   isna_number_is_not_na:
     value: null
     formula: "=IF(ISNA(5), 1, 0)"          # Expected: 0 (5 is not NA)
+    expected: 0
   isna_text_is_not_na:
     value: null
     formula: "=IF(ISNA(\"test\"), 1, 0)"   # Expected: 0 (text is not NA)
+    expected: 0
   # NOTE: ISERROR(1/0) and ISNA(NA()) require error value support - see unit tests
 
   # ═══════════════════════════════════════════════════════════════════════════
@@ -77,12 +92,15 @@ assumptions:
   n_true:
     value: null
     formula: "=N(TRUE())"                  # Expected: 1
+    expected: 1
   n_false:
     value: null
     formula: "=N(FALSE())"                 # Expected: 0
+    expected: 0
   n_number:
     value: null
     formula: "=N(42)"                      # Expected: 42
+    expected: 42
 
   # ═══════════════════════════════════════════════════════════════════════════
   # TYPE - Value type code
@@ -90,12 +108,15 @@ assumptions:
   type_number:
     value: null
     formula: "=TYPE(123)"                  # Expected: 1
+    expected: 1
   type_text:
     value: null
     formula: "=TYPE(\"abc\")"              # Expected: 2
+    expected: 2
   type_logical:
     value: null
     formula: "=TYPE(TRUE())"               # Expected: 4
+    expected: 4
 
   # ═══════════════════════════════════════════════════════════════════════════
   # ISREF - Reference check (context-dependent)
@@ -103,9 +124,11 @@ assumptions:
   isref_value:
     value: null
     formula: "=IF(ISREF(123), 1, 0)"       # Expected: 0 (literal is not a reference)
+    expected: 0
   isref_text:
     value: null
     formula: "=IF(ISREF(\"A1\"), 1, 0)"    # Expected: 0 (text is not a reference)
+    expected: 0
   # Note: Testing ISREF(A1) requires cell reference context which may not be available in all test environments
 
   # ═══════════════════════════════════════════════════════════════════════════
@@ -114,9 +137,11 @@ assumptions:
   isformula_value:
     value: null
     formula: "=IF(ISFORMULA(42), 1, 0)"    # Expected: 0 (literal value)
+    expected: 0
   isformula_text:
     value: null
     formula: "=IF(ISFORMULA(\"test\"), 1, 0)"  # Expected: 0 (text value)
+    expected: 0
   # Note: Testing ISFORMULA(A1) requires checking if cell A1 contains a formula, which is context-dependent
 
   # ═══════════════════════════════════════════════════════════════════════════
@@ -128,6 +153,8 @@ assumptions:
   na_type_is_error:
     value: null
     formula: "=TYPE(NA())"                 # Expected: 16 (error type)
+    expected: 16
   na_not_a_number:
     value: null
     formula: "=IF(ISNUMBER(NA()), 1, 0)"   # Expected: 0 (NA is not a number)
+    expected: 0

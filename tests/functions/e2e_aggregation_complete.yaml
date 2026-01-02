@@ -29,15 +29,19 @@ assumptions:
   eac_sum_basic:
     value: null
     formula: "=SUM(10, 20, 30, 40, 50)"        # Expected: 150
+    expected: 150
   eac_sum_negative:
     value: null
     formula: "=SUM(-5, -3, 0, 3, 5)"           # Expected: 0
+    expected: 0
   eac_sum_decimal:
     value: null
     formula: "=SUM(1.5, 2.5, 3.0)"             # Expected: 7
+    expected: 7
   eac_sum_single:
     value: null
     formula: "=SUM(42)"                         # Expected: 42
+    expected: 42
 
   # ═══════════════════════════════════════════════════════════════════════════
   # AVERAGE / AVG - Mean of values
@@ -45,15 +49,19 @@ assumptions:
   eac_avg_basic:
     value: null
     formula: "=AVERAGE(10, 20, 30, 40, 50)"    # Expected: 30
+    expected: 30
   eac_avg_alias:
     value: null
     formula: "=AVG(5, 10, 15, 20, 25)"         # Expected: 15
+    expected: 15
   eac_avg_decimal:
     value: null
     formula: "=AVERAGE(1.5, 2.5, 3.5)"         # Expected: 2.5
+    expected: 2.5
   eac_avg_negative:
     value: null
     formula: "=AVERAGE(-10, 0, 10)"            # Expected: 0
+    expected: 0
 
   # ═══════════════════════════════════════════════════════════════════════════
   # COUNT / COUNTA - Count values
@@ -61,15 +69,19 @@ assumptions:
   eac_count_numbers:
     value: null
     formula: "=COUNT(1, 2, 3, 4, 5)"           # Expected: 5
+    expected: 5
   eac_count_mixed:
     value: null
     formula: "=COUNT(1, \"a\", 3, \"b\", 5)"   # Expected: 3
+    expected: 3
   eac_counta_all:
     value: null
     formula: "=COUNTA(1, \"a\", 3, \"b\", 5)"  # Expected: 5
+    expected: 5
   eac_counta_text:
     value: null
     formula: "=COUNTA(\"x\", \"y\", \"z\")"    # Expected: 3
+    expected: 3
 
   # ═══════════════════════════════════════════════════════════════════════════
   # MIN / MAX - Extremes
@@ -77,21 +89,27 @@ assumptions:
   eac_min_positive:
     value: null
     formula: "=MIN(5, 3, 8, 1, 9)"             # Expected: 1
+    expected: 1
   eac_min_negative:
     value: null
     formula: "=MIN(-5, 3, -8, 1, -9)"          # Expected: -9
+    expected: -9
   eac_max_positive:
     value: null
     formula: "=MAX(5, 3, 8, 1, 9)"             # Expected: 9
+    expected: 9
   eac_max_negative:
     value: null
     formula: "=MAX(-5, -3, -8, -1, -9)"        # Expected: -1
+    expected: -1
   eac_min_decimal:
     value: null
     formula: "=MIN(1.5, 0.5, 2.5)"             # Expected: 0.5
+    expected: 0.5
   eac_max_decimal:
     value: null
     formula: "=MAX(1.5, 0.5, 2.5)"             # Expected: 2.5
+    expected: 2.5
 
   # ═══════════════════════════════════════════════════════════════════════════
   # PRODUCT - Multiply all values
@@ -99,15 +117,19 @@ assumptions:
   eac_product_basic:
     value: null
     formula: "=PRODUCT(2, 3, 4)"               # Expected: 24
+    expected: 24
   eac_product_decimal:
     value: null
     formula: "=PRODUCT(1.5, 2, 3)"             # Expected: 9
+    expected: 9
   eac_product_with_one:
     value: null
     formula: "=PRODUCT(5, 1, 1, 1)"            # Expected: 5
+    expected: 5
   eac_product_negative:
     value: null
     formula: "=PRODUCT(-2, 3, 4)"              # Expected: -24
+    expected: -24
 
   # ═══════════════════════════════════════════════════════════════════════════
   # LARGE / SMALL - Nth largest/smallest (REAL TESTS)
@@ -138,9 +160,11 @@ assumptions:
   sumsq_basic:
     value: null
     formula: "=3*3 + 4*4"                      # Expected: 25 (9 + 16)
+    expected: 25
   sumsq_multiple:
     value: null
     formula: "=1*1 + 2*2 + 3*3"                # Expected: 14 (1 + 4 + 9)
+    expected: 14
 
   # ═══════════════════════════════════════════════════════════════════════════
   # SUMPRODUCT - Sum of element-wise products (inline)
@@ -148,6 +172,7 @@ assumptions:
   sumproduct_manual:
     value: null
     formula: "=1*4 + 2*5 + 3*6"                # Expected: 32
+    expected: 32
 
   # ═══════════════════════════════════════════════════════════════════════════
   # COUNTUNIQUE - Count unique values (REAL TEST)
@@ -156,6 +181,7 @@ assumptions:
   eac_countunique_basic:
     value: null
     formula: "=COUNTUNIQUE(unique_data.values)"  # Expected: 4
+    expected: 4
 
   # ═══════════════════════════════════════════════════════════════════════════
   # RANK.EQ - Position in sorted list (REAL TESTS)
@@ -211,9 +237,12 @@ assumptions:
   eac_avg_single:
     value: null
     formula: "=AVERAGE(42)"                    # Expected: 42
+    expected: 42
   eac_min_single:
     value: null
     formula: "=MIN(42)"                        # Expected: 42
+    expected: 42
   eac_max_single:
     value: null
     formula: "=MAX(42)"                        # Expected: 42
+    expected: 42

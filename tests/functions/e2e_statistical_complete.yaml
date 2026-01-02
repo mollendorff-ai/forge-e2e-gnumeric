@@ -83,15 +83,19 @@ assumptions:
   esc_median_odd:
     value: null
     formula: "=MEDIAN(10, 20, 30, 40, 50)"            # Expected: 30 (5 values)
+    expected: 30
   esc_median_even:
     value: null
     formula: "=MEDIAN(10, 20, 30, 40)"                # Expected: 25 (average of 20, 30)
+    expected: 25
   esc_median_unsorted:
     value: null
     formula: "=MEDIAN(50, 10, 30, 40, 20)"            # Expected: 30
+    expected: 30
   esc_median_single:
     value: null
     formula: "=MEDIAN(42)"                            # Expected: 42
+    expected: 42
 
   # ═══════════════════════════════════════════════════════════════════════════
   # PERCENTILE - Value at percentile k (REAL TESTS)
@@ -212,6 +216,7 @@ assumptions:
   avg_inline:
     value: null
     formula: "=(10+20+30+40+50)/5"                    # Expected: 30
+    expected: 30
 
   # ═══════════════════════════════════════════════════════════════════════════
   # COMPREHENSIVE EDGE CASES - All using REAL function calls
