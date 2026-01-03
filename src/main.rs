@@ -68,7 +68,11 @@ fn main() -> anyhow::Result<()> {
 
     println!("{}", "forge-e2e-gnumeric".bold());
     println!("  Forge: {}", forge_binary.display());
-    println!("  Engine: {} ({})", GnumericEngine::name(), engine.version());
+    println!(
+        "  Engine: {} ({})",
+        GnumericEngine::name(),
+        engine.version()
+    );
     println!("  Tests: {}", cli.tests.display());
     println!();
 
@@ -120,7 +124,10 @@ fn run_all_mode(runner: &TestRunner, batch: bool) -> anyhow::Result<()> {
 
     let passed = results.iter().filter(|r| r.is_pass()).count();
     let failed = results.iter().filter(|r| r.is_fail()).count();
-    let skipped = results.iter().filter(|r| matches!(r, TestResult::Skip { .. })).count();
+    let skipped = results
+        .iter()
+        .filter(|r| matches!(r, TestResult::Skip { .. }))
+        .count();
 
     if failed == 0 {
         println!(
@@ -155,7 +162,13 @@ fn print_result(result: &TestResult) {
         TestResult::Pass { name, .. } => {
             println!("  {} {}", "✓".green(), name);
         }
-        TestResult::Fail { name, expected, actual, error, .. } => {
+        TestResult::Fail {
+            name,
+            expected,
+            actual,
+            error,
+            ..
+        } => {
             println!("  {} {}", "✗".red(), name.red());
             if let Some(actual) = actual {
                 println!("      expected: {expected}, actual: {actual}");

@@ -98,10 +98,7 @@ pub enum TestResult {
         error: Option<String>,
     },
     /// Test was skipped.
-    Skip {
-        name: String,
-        reason: String,
-    },
+    Skip { name: String, reason: String },
 }
 
 impl TestResult {
@@ -167,7 +164,10 @@ pub fn extract_table_data_yaml(spec: &TestSpec) -> String {
 
     for (section_name, section) in &spec.sections {
         // Skip metadata sections and assumptions (which contain tests)
-        if section_name.starts_with('_') || section_name == "scenarios" || section_name == "assumptions" {
+        if section_name.starts_with('_')
+            || section_name == "scenarios"
+            || section_name == "assumptions"
+        {
             continue;
         }
 
@@ -181,7 +181,8 @@ pub fn extract_table_data_yaml(spec: &TestSpec) -> String {
                         let _ = writeln!(yaml, "  {col_name}: [{}]", nums_str.join(", "));
                     }
                     TableColumn::Strings(strs) => {
-                        let strs_escaped: Vec<String> = strs.iter().map(|s| format!("\"{s}\"")).collect();
+                        let strs_escaped: Vec<String> =
+                            strs.iter().map(|s| format!("\"{s}\"")).collect();
                         let _ = writeln!(yaml, "  {col_name}: [{}]", strs_escaped.join(", "));
                     }
                     TableColumn::Formula(f) => {

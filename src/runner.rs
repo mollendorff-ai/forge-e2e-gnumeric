@@ -14,7 +14,10 @@ use std::path::{Path, PathBuf};
 use std::process::Command;
 
 use crate::engine::GnumericEngine;
-use crate::types::{extract_skip_cases, extract_table_data_yaml, extract_test_cases, SkipCase, TestCase, TestResult, TestSpec};
+use crate::types::{
+    extract_skip_cases, extract_table_data_yaml, extract_test_cases, SkipCase, TestCase,
+    TestResult, TestSpec,
+};
 
 /// Test runner for E2E validation.
 pub struct TestRunner {
@@ -454,7 +457,10 @@ impl TestRunner {
         }
 
         // Convert XLSX to CSV using Gnumeric (all sheets)
-        let csv_files = match self.engine.xlsx_to_csv_all_sheets(&xlsx_path, temp_dir.path()) {
+        let csv_files = match self
+            .engine
+            .xlsx_to_csv_all_sheets(&xlsx_path, temp_dir.path())
+        {
             Ok(files) => files,
             Err(e) => {
                 return TestResult::Fail {
