@@ -1,6 +1,6 @@
 # forge-e2e-gnumeric
 
-E2E validation of [Forge](https://github.com/royalbit/forge) Excel-compatible functions against Gnumeric.
+E2E validation of [Forge](https://github.com/mollendorff-ai/forge) Excel-compatible functions against Gnumeric.
 
 ## Overview
 
@@ -90,9 +90,9 @@ assumptions:
 
 ## Related Projects
 
-- [forge](https://github.com/royalbit/forge) - Deterministic YAML-based financial modeling engine
-- [forge-e2e](https://github.com/royalbit/forge-e2e) - E2E test suite documentation hub
-- [forge-e2e-r](https://github.com/royalbit/forge-e2e-r) - Statistical validation against R
+- [forge](https://github.com/mollendorff-ai/forge) - Deterministic YAML-based financial modeling engine
+- [forge-e2e](https://github.com/mollendorff-ai/forge-e2e) - E2E test suite documentation hub
+- [forge-e2e-r](https://github.com/mollendorff-ai/forge-e2e-r) - Statistical validation against R
 
 ## License
 
