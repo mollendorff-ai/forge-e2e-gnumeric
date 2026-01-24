@@ -15,14 +15,6 @@ current:
     - "[ ] Sync with forge-e2e-r for statistical function coverage"
     - "[ ] Add tolerance-based comparison for floating-point tests"
 
-completed:
-  - version: "1.0.1"
-    date: "2026-01-24"
-    summary: "Rebrand RoyalBit to Möllendorff Group Inc."
-  - version: "1.0.0"
-    date: "2026-01-02"
-    summary: "Initial release with 1,909+ formula tests"
-
 next:
   - version: "1.2.0"
     summary: "CI/CD integration"
