@@ -10,6 +10,10 @@ use calamine::{open_workbook, Data, Reader, Xlsx};
 use rust_xlsxwriter::{Formula, Workbook, XlsxError};
 
 /// Creates a test Excel file with scalars for import testing.
+///
+/// # Errors
+///
+/// Returns an error if the workbook cannot be created or saved.
 pub fn create_test_scalars_xlsx(path: &Path) -> Result<(), XlsxError> {
     let mut workbook = Workbook::new();
     let sheet = workbook.add_worksheet();
@@ -42,6 +46,7 @@ pub enum CellValue {
 }
 
 impl CellValue {
+    #[must_use]
     pub const fn as_number(&self) -> Option<f64> {
         match self {
             Self::Number(n) => Some(*n),
@@ -49,6 +54,7 @@ impl CellValue {
         }
     }
 
+    #[must_use]
     pub fn as_text(&self) -> Option<&str> {
         match self {
             Self::Text(s) => Some(s),
@@ -76,6 +82,10 @@ impl From<&Data> for CellValue {
 pub type SheetData = Vec<(String, Vec<Vec<CellValue>>)>;
 
 /// Reads an Excel file and returns sheet data.
+///
+/// # Errors
+///
+/// Returns an error if the file cannot be opened or a sheet cannot be read.
 pub fn read_xlsx(path: &Path) -> Result<SheetData, String> {
     let mut workbook: Xlsx<_> =
         open_workbook(path).map_err(|e| format!("Failed to open Excel file: {e}"))?;

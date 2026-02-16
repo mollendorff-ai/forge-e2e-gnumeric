@@ -103,16 +103,19 @@ pub enum TestResult {
 
 impl TestResult {
     /// Returns `true` if this result is a pass.
+    #[must_use]
     pub const fn is_pass(&self) -> bool {
         matches!(self, Self::Pass { .. })
     }
 
     /// Returns `true` if this result is a failure.
+    #[must_use]
     pub const fn is_fail(&self) -> bool {
         matches!(self, Self::Fail { .. })
     }
 
     /// Returns the test name.
+    #[must_use]
     pub fn name(&self) -> &str {
         match self {
             Self::Pass { name, .. } | Self::Fail { name, .. } | Self::Skip { name, .. } => name,
@@ -158,6 +161,7 @@ pub fn extract_test_cases(spec: &TestSpec, source_file: Option<&std::path::Path>
 ///
 /// Returns a string containing all table sections in YAML format,
 /// suitable for inclusion in a generated test file.
+#[must_use]
 pub fn extract_table_data_yaml(spec: &TestSpec) -> String {
     use std::fmt::Write;
     let mut yaml = String::new();
@@ -177,7 +181,7 @@ pub fn extract_table_data_yaml(spec: &TestSpec) -> String {
             for (col_name, col_data) in columns {
                 match col_data {
                     TableColumn::Numbers(nums) => {
-                        let nums_str: Vec<String> = nums.iter().map(|n| n.to_string()).collect();
+                        let nums_str: Vec<String> = nums.iter().map(ToString::to_string).collect();
                         let _ = writeln!(yaml, "  {col_name}: [{}]", nums_str.join(", "));
                     }
                     TableColumn::Strings(strs) => {
@@ -197,6 +201,7 @@ pub fn extract_table_data_yaml(spec: &TestSpec) -> String {
 }
 
 /// Extracts skip cases from a test spec.
+#[must_use]
 pub fn extract_skip_cases(spec: &TestSpec) -> Vec<SkipCase> {
     let mut cases = Vec::new();
 

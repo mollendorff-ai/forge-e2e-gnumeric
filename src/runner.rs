@@ -35,6 +35,11 @@ pub struct TestRunner {
 
 impl TestRunner {
     /// Creates a new test runner.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the tests directory does not exist or YAML files
+    /// cannot be read.
     pub fn new(
         forge_binary: PathBuf,
         engine: GnumericEngine,
@@ -112,6 +117,7 @@ impl TestRunner {
     }
 
     /// Returns the total number of test cases.
+    #[must_use]
     #[allow(clippy::missing_const_for_fn)] // Uses len() which isn't const
     pub fn total_tests(&self) -> usize {
         self.test_cases.len() + self.skip_cases.len()
@@ -119,21 +125,25 @@ impl TestRunner {
 
     #[allow(dead_code)]
     /// Returns test directory.
+    #[must_use]
     pub const fn tests_dir(&self) -> &PathBuf {
         &self.tests_dir
     }
 
     /// Returns all test cases.
+    #[must_use]
     pub fn test_cases(&self) -> &[TestCase] {
         &self.test_cases
     }
 
     /// Returns all skip cases.
+    #[must_use]
     pub fn skip_cases(&self) -> &[SkipCase] {
         &self.skip_cases
     }
 
     /// Runs all tests and returns results.
+    #[must_use]
     pub fn run_all(&self) -> Vec<TestResult> {
         self.skip_cases
             .iter()
@@ -171,6 +181,7 @@ impl TestRunner {
     }
 
     /// Runs all tests in batch mode (single XLSX, faster).
+    #[must_use]
     #[allow(clippy::too_many_lines)]
     pub fn run_batch(&self) -> Vec<TestResult> {
         let mut results: Vec<TestResult> = self
@@ -370,6 +381,8 @@ impl TestRunner {
     }
 
     /// Runs a single test case.
+    #[must_use]
+    #[allow(clippy::too_many_lines)]
     pub fn run_test(&self, test_case: &TestCase) -> TestResult {
         let escaped_formula = test_case.formula.replace('"', "\\\"");
 
@@ -475,25 +488,22 @@ impl TestRunner {
 
         // Search all sheets for the result
         for csv_path in &csv_files {
-            match Self::find_result_in_csv(csv_path, test_case.expected) {
-                Ok(actual) => {
-                    if (actual - test_case.expected).abs() < f64::EPSILON {
-                        return TestResult::Pass {
-                            name: test_case.name.clone(),
-                            formula: test_case.formula.clone(),
-                            expected: test_case.expected,
-                            actual,
-                        };
-                    }
-                    return TestResult::Fail {
+            if let Ok(actual) = Self::find_result_in_csv(csv_path, test_case.expected) {
+                if (actual - test_case.expected).abs() < f64::EPSILON {
+                    return TestResult::Pass {
                         name: test_case.name.clone(),
                         formula: test_case.formula.clone(),
                         expected: test_case.expected,
-                        actual: Some(actual),
-                        error: None,
+                        actual,
                     };
                 }
-                Err(_) => continue, // Try next sheet
+                return TestResult::Fail {
+                    name: test_case.name.clone(),
+                    formula: test_case.formula.clone(),
+                    expected: test_case.expected,
+                    actual: Some(actual),
+                    error: None,
+                };
             }
         }
 

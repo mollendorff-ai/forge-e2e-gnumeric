@@ -21,6 +21,7 @@ impl GnumericEngine {
     ///
     /// Returns `Some(engine)` if ssconvert is found and working,
     /// `None` otherwise.
+    #[must_use]
     pub fn detect() -> Option<Self> {
         let output = Command::new("ssconvert").arg("--version").output().ok()?;
 
@@ -36,11 +37,13 @@ impl GnumericEngine {
     }
 
     /// Returns the engine version string.
+    #[must_use]
     pub fn version(&self) -> &str {
         &self.version
     }
 
     /// Returns the engine name.
+    #[must_use]
     pub const fn name() -> &'static str {
         Self::NAME
     }
@@ -49,6 +52,11 @@ impl GnumericEngine {
     ///
     /// Uses ssconvert with the `--recalc` and `-S` flags to export all sheets
     /// as separate CSV files. Returns paths to all generated CSV files.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the xlsx path has no file stem, ssconvert fails to
+    /// run, or ssconvert exits with a non-zero status.
     pub fn xlsx_to_csv(&self, xlsx_path: &Path, output_dir: &Path) -> Result<PathBuf, String> {
         let base_name = xlsx_path
             .file_stem()
@@ -79,6 +87,11 @@ impl GnumericEngine {
     }
 
     /// Converts XLSX to CSV files (all sheets) and returns all CSV paths.
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the xlsx path has no file stem, ssconvert fails,
+    /// or no CSV files are generated.
     pub fn xlsx_to_csv_all_sheets(
         &self,
         xlsx_path: &Path,
