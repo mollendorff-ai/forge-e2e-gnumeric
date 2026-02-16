@@ -118,12 +118,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "cargo-husky"
-version = "1.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7b02b629252fe8ef6460461409564e2c21d0c8e77e0944f3d189ff06c4e932ad"
-
-[[package]]
 name = "cfg-if"
 version = "1.0.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -384,6 +378,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "mollendorff-forge-e2e-gnumeric"
+version = "1.0.0"
+dependencies = [
+ "anyhow",
+ "calamine",
+ "clap",
+ "colored",
+ "csv",
+ "pretty_assertions",
+ "rust_xlsxwriter",
+ "serde",
+ "serde_yaml_ng",
+ "tempfile",
+ "thiserror",
+]
+
+[[package]]
 name = "once_cell"
 version = "1.21.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -438,24 +449,6 @@ name = "r-efi"
 version = "5.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "69cdb34c158ceb288df11e18b4bd39de994f6657d83847bdffdbd7f346754b0f"
-
-[[package]]
-name = "mollendorff-forge-e2e-gnumeric"
-version = "1.0.0"
-dependencies = [
- "anyhow",
- "calamine",
- "cargo-husky",
- "clap",
- "colored",
- "csv",
- "pretty_assertions",
- "rust_xlsxwriter",
- "serde",
- "serde_yaml_ng",
- "tempfile",
- "thiserror",
-]
 
 [[package]]
 name = "rust_xlsxwriter"

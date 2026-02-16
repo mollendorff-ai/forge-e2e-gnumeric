@@ -96,4 +96,4 @@ assumptions:
 
 ## License
 
-Elastic License 2.0 - See [LICENSE](LICENSE)
+Dual-licensed under [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE), at your option.
