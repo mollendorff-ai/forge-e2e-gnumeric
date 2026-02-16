@@ -25,6 +25,7 @@ next:
       - "[ ] Test result reporting"
 
 backlog:
+  - "Remove 'enterprise' tier labels from test YAML comments"
   - "Performance benchmarking and optimization"
   - "Parallel test execution"
   - "HTML test report generation"
