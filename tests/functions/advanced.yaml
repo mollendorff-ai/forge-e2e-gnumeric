@@ -1,6 +1,6 @@
 # E2E Advanced Function Tests
 # Validated against Gnumeric
-# Coverage: 3 advanced functions (all enterprise)
+# Coverage: 3 advanced functions
 
 _forge_version: "5.0.0"
 

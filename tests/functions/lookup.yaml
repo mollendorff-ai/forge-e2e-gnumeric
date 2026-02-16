@@ -1,6 +1,6 @@
 # E2E Lookup Function Tests
 # Validated against Gnumeric
-# Coverage: 13 lookup functions (1 demo + 12 enterprise)
+# Coverage: 13 lookup functions
 
 _forge_version: "5.0.0"
 
@@ -55,7 +55,7 @@ assumptions:
     expected: 200
 
   # ══════════════════════════════════════════════════════════════════════════
-  # INDEX - Get value at position (ENTERPRISE)
+  # INDEX - Get value at position
   # ══════════════════════════════════════════════════════════════════════════
   test_index_first:
     value: null
@@ -83,7 +83,7 @@ assumptions:
     expected: 70
 
   # ══════════════════════════════════════════════════════════════════════════
-  # MATCH - Find position (ENTERPRISE)
+  # MATCH - Find position
   # ══════════════════════════════════════════════════════════════════════════
   test_match_exact_number:
     value: null
@@ -111,7 +111,7 @@ assumptions:
     expected: 2
 
   # ══════════════════════════════════════════════════════════════════════════
-  # VLOOKUP - Vertical lookup via INDEX+MATCH (ENTERPRISE)
+  # VLOOKUP - Vertical lookup via INDEX+MATCH
   # ══════════════════════════════════════════════════════════════════════════
   test_vlookup_price_by_id:
     value: null
@@ -129,7 +129,7 @@ assumptions:
     expected: 1
 
   # ══════════════════════════════════════════════════════════════════════════
-  # HLOOKUP - Horizontal lookup (ENTERPRISE)
+  # HLOOKUP - Horizontal lookup
   # ══════════════════════════════════════════════════════════════════════════
   test_hlookup_q1_first:
     value: null
@@ -152,7 +152,7 @@ assumptions:
     expected: 1300
 
   # ══════════════════════════════════════════════════════════════════════════
-  # XLOOKUP - Modern flexible lookup (ENTERPRISE)
+  # XLOOKUP - Modern flexible lookup
   # ══════════════════════════════════════════════════════════════════════════
   test_xlookup_price_by_name:
     value: null
@@ -175,7 +175,7 @@ assumptions:
     expected: 1
 
   # ══════════════════════════════════════════════════════════════════════════
-  # OFFSET - Reference offset via INDEX simulation (ENTERPRISE)
+  # OFFSET - Reference offset via INDEX simulation
   # ══════════════════════════════════════════════════════════════════════════
   test_offset_down_1:
     value: null
@@ -193,7 +193,7 @@ assumptions:
     expected: 80
 
   # ══════════════════════════════════════════════════════════════════════════
-  # INDIRECT - Reference from text via INDEX simulation (ENTERPRISE)
+  # INDIRECT - Reference from text via INDEX simulation
   # ══════════════════════════════════════════════════════════════════════════
   test_indirect_col_a_1:
     value: null
@@ -216,7 +216,7 @@ assumptions:
     expected: 200
 
   # ══════════════════════════════════════════════════════════════════════════
-  # ADDRESS - Cell reference string (ENTERPRISE)
+  # ADDRESS - Cell reference string
   # ══════════════════════════════════════════════════════════════════════════
   test_address_a1_len:
     value: null
@@ -244,7 +244,7 @@ assumptions:
     expected: 6
 
   # ══════════════════════════════════════════════════════════════════════════
-  # ROW - Row number (tested via ROWS) (ENTERPRISE)
+  # ROW - Row number (tested via ROWS)
   # ══════════════════════════════════════════════════════════════════════════
   test_row_count_products:
     value: null
@@ -262,7 +262,7 @@ assumptions:
     expected: 5
 
   # ══════════════════════════════════════════════════════════════════════════
-  # COLUMN - Column number (tested via COLUMNS) (ENTERPRISE)
+  # COLUMN - Column number (tested via COLUMNS)
   # ══════════════════════════════════════════════════════════════════════════
   test_column_count_products:
     value: null
@@ -280,7 +280,7 @@ assumptions:
     expected: 3
 
   # ══════════════════════════════════════════════════════════════════════════
-  # ROWS - Count rows in array (ENTERPRISE)
+  # ROWS - Count rows in array
   # ══════════════════════════════════════════════════════════════════════════
   test_rows_products:
     value: null
@@ -298,7 +298,7 @@ assumptions:
     expected: 3
 
   # ══════════════════════════════════════════════════════════════════════════
-  # COLUMNS - Count columns in table (ENTERPRISE)
+  # COLUMNS - Count columns in table
   # ══════════════════════════════════════════════════════════════════════════
   test_columns_products:
     value: null

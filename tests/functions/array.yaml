@@ -1,6 +1,6 @@
 # E2E Array Function Tests
 # Validated against Gnumeric
-# Coverage: 5 array functions (all enterprise)
+# Coverage: 5 array functions
 # Note: Most array functions return arrays and require unit test coverage
 
 _forge_version: "5.0.0"

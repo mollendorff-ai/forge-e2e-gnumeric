@@ -165,7 +165,7 @@ assumptions:
     expected: 366
 
   # ══════════════════════════════════════════════════════════════════════════
-  # NOW - Current date and time (Enterprise)
+  # NOW - Current date and time
   # Note: NOW() returns datetime string - not compatible with forge calculate
   # Tests are via CLI: forge calculate with --now flag or programmatic API
   # ══════════════════════════════════════════════════════════════════════════
@@ -173,7 +173,7 @@ assumptions:
   # which cannot be used with date functions like YEAR(), MONTH(), DAY()
 
   # ══════════════════════════════════════════════════════════════════════════
-  # TIME - Create time from hours/minutes/seconds (Enterprise)
+  # TIME - Create time from hours/minutes/seconds
   # ══════════════════════════════════════════════════════════════════════════
   test_time_midnight:
     value: null
@@ -201,7 +201,7 @@ assumptions:
     expected: 45030
 
   # ══════════════════════════════════════════════════════════════════════════
-  # HOUR - Extract hour from time (Enterprise)
+  # HOUR - Extract hour from time
   # ══════════════════════════════════════════════════════════════════════════
   test_hour_midnight:
     value: null
@@ -229,7 +229,7 @@ assumptions:
     expected: 23
 
   # ══════════════════════════════════════════════════════════════════════════
-  # MINUTE - Extract minute from time (Enterprise)
+  # MINUTE - Extract minute from time
   # ══════════════════════════════════════════════════════════════════════════
   test_minute_zero:
     value: null
@@ -252,7 +252,7 @@ assumptions:
     expected: 15
 
   # ══════════════════════════════════════════════════════════════════════════
-  # SECOND - Extract second from time (Enterprise)
+  # SECOND - Extract second from time
   # ══════════════════════════════════════════════════════════════════════════
   test_second_zero:
     value: null
@@ -275,7 +275,7 @@ assumptions:
     expected: 59
 
   # ══════════════════════════════════════════════════════════════════════════
-  # WEEKDAY - Day of week (Enterprise)
+  # WEEKDAY - Day of week
   # ══════════════════════════════════════════════════════════════════════════
   test_weekday_monday:
     value: null
@@ -303,7 +303,7 @@ assumptions:
     expected: 0
 
   # ══════════════════════════════════════════════════════════════════════════
-  # DAYS - Days between dates (Enterprise)
+  # DAYS - Days between dates
   # ══════════════════════════════════════════════════════════════════════════
   test_days_30:
     value: null
@@ -331,7 +331,7 @@ assumptions:
     expected: -30
 
   # ══════════════════════════════════════════════════════════════════════════
-  # EDATE - Add months to date (Enterprise)
+  # EDATE - Add months to date
   # ══════════════════════════════════════════════════════════════════════════
   test_edate_add_3:
     value: null
@@ -359,7 +359,7 @@ assumptions:
     expected: 29
 
   # ══════════════════════════════════════════════════════════════════════════
-  # EOMONTH - End of month (Enterprise)
+  # EOMONTH - End of month
   # ══════════════════════════════════════════════════════════════════════════
   test_eomonth_jan:
     value: null
@@ -392,7 +392,7 @@ assumptions:
     expected: 30
 
   # ══════════════════════════════════════════════════════════════════════════
-  # NETWORKDAYS - Working days between dates (Enterprise)
+  # NETWORKDAYS - Working days between dates
   # ══════════════════════════════════════════════════════════════════════════
   test_networkdays_week:
     value: null
@@ -420,7 +420,7 @@ assumptions:
     expected: 1
 
   # ══════════════════════════════════════════════════════════════════════════
-  # WORKDAY - Add working days to date (Enterprise)
+  # WORKDAY - Add working days to date
   # ══════════════════════════════════════════════════════════════════════════
   test_workday_add_5:
     value: null
@@ -443,7 +443,7 @@ assumptions:
     expected: 2
 
   # ══════════════════════════════════════════════════════════════════════════
-  # YEARFRAC - Fraction of year between dates (Enterprise)
+  # YEARFRAC - Fraction of year between dates
   # ══════════════════════════════════════════════════════════════════════════
   test_yearfrac_quarter:
     value: null

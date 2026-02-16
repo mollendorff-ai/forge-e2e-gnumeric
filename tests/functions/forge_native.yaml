@@ -1,5 +1,5 @@
 # E2E Forge Native Function Tests
-# All 8 functions are enterprise-only features
+# All 8 forge-native functions
 # VARIANCE, VARIANCE_PCT, VARIANCE_STATUS, BREAKEVEN_UNITS, BREAKEVEN_REVENUE, YD, YM, MD
 
 _forge_version: "1.0.0"

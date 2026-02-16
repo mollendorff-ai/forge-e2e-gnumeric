@@ -1,6 +1,6 @@
 # E2E Trigonometric Function Tests - Complete Coverage
 # Validates forge calculations against Gnumeric
-# Total: 9 functions (6 demo + 3 enterprise)
+# Total: 9 functions
 
 _forge_version: "1.0.0"
 
@@ -224,7 +224,7 @@ assumptions:
     expected: -1.569796
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # SINH - Hyperbolic sine (enterprise)
+  # SINH - Hyperbolic sine
   # ═══════════════════════════════════════════════════════════════════════════
   sinh_zero:
     value: null
@@ -257,7 +257,7 @@ assumptions:
     expected: -0.521095
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # COSH - Hyperbolic cosine (enterprise)
+  # COSH - Hyperbolic cosine
   # ═══════════════════════════════════════════════════════════════════════════
   cosh_zero:
     value: null
@@ -290,7 +290,7 @@ assumptions:
     expected: 1.127626
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # TANH - Hyperbolic tangent (enterprise)
+  # TANH - Hyperbolic tangent
   # ═══════════════════════════════════════════════════════════════════════════
   tanh_zero:
     value: null

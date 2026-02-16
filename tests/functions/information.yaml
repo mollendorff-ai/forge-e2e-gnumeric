@@ -1,12 +1,12 @@
 # E2E Information Function Tests
 # Validated against Gnumeric
-# All 13 information functions (all enterprise): ISBLANK, ISERROR, ISNA, ISNUMBER, ISTEXT, ISLOGICAL, ISEVEN, ISODD, ISREF, ISFORMULA, NA, TYPE, N
+# All 13 information functions: ISBLANK, ISERROR, ISNA, ISNUMBER, ISTEXT, ISLOGICAL, ISEVEN, ISODD, ISREF, ISFORMULA, NA, TYPE, N
 
 _forge_version: "1.0.0"
 
 assumptions:
   # ═══════════════════════════════════════════════════════════════════════════
-  # ISBLANK - Is cell empty (enterprise)
+  # ISBLANK - Is cell empty
   # ═══════════════════════════════════════════════════════════════════════════
   test_isblank_empty_string:
     value: null
@@ -29,7 +29,7 @@ assumptions:
     expected: 0
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # ISERROR - Is error value (enterprise)
+  # ISERROR - Is error value
   # ═══════════════════════════════════════════════════════════════════════════
   test_iserror_valid_number:
     value: null
@@ -57,7 +57,7 @@ assumptions:
     expected: 1
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # ISNA - Is #N/A error (enterprise)
+  # ISNA - Is #N/A error
   # ═══════════════════════════════════════════════════════════════════════════
   test_isna_number:
     value: null
@@ -80,7 +80,7 @@ assumptions:
     expected: 0
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # ISNUMBER - Is numeric (enterprise)
+  # ISNUMBER - Is numeric
   # ═══════════════════════════════════════════════════════════════════════════
   test_isnumber_integer:
     value: null
@@ -118,7 +118,7 @@ assumptions:
     expected: 0
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # ISTEXT - Is text (enterprise)
+  # ISTEXT - Is text
   # ═══════════════════════════════════════════════════════════════════════════
   test_istext_string:
     value: null
@@ -151,7 +151,7 @@ assumptions:
     expected: 1
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # ISLOGICAL - Is boolean (enterprise)
+  # ISLOGICAL - Is boolean
   # ═══════════════════════════════════════════════════════════════════════════
   test_islogical_true:
     value: null
@@ -179,7 +179,7 @@ assumptions:
     expected: 1
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # ISEVEN - Is even number (enterprise)
+  # ISEVEN - Is even number
   # ═══════════════════════════════════════════════════════════════════════════
   test_iseven_positive_even:
     value: null
@@ -212,7 +212,7 @@ assumptions:
     expected: 1
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # ISODD - Is odd number (enterprise)
+  # ISODD - Is odd number
   # ═══════════════════════════════════════════════════════════════════════════
   test_isodd_positive_odd:
     value: null
@@ -245,7 +245,7 @@ assumptions:
     expected: 1
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # ISREF - Is reference (enterprise)
+  # ISREF - Is reference
   # ═══════════════════════════════════════════════════════════════════════════
   test_isref_number:
     value: null
@@ -263,7 +263,7 @@ assumptions:
     expected: 0
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # ISFORMULA - Is formula (enterprise)
+  # ISFORMULA - Is formula
   # ═══════════════════════════════════════════════════════════════════════════
   test_isformula_number:
     value: null
@@ -281,7 +281,7 @@ assumptions:
     expected: 0
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # NA - Return #N/A error value (enterprise)
+  # NA - Return #N/A error value
   # ═══════════════════════════════════════════════════════════════════════════
   test_na_detected_by_isna:
     value: null
@@ -309,7 +309,7 @@ assumptions:
     expected: 16
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # TYPE - Type of value (enterprise)
+  # TYPE - Type of value
   # Returns: 1=number, 2=text, 4=logical, 16=error
   # ═══════════════════════════════════════════════════════════════════════════
   test_type_number:
@@ -358,7 +358,7 @@ assumptions:
     expected: 2
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # N - Convert to number (enterprise)
+  # N - Convert to number
   # Returns: 1 for TRUE, 0 for FALSE, number for number, 0 for others
   # ═══════════════════════════════════════════════════════════════════════════
   test_n_true:

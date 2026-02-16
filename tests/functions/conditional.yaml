@@ -1,6 +1,6 @@
 # E2E Conditional Function Tests
 # Validated against Gnumeric
-# All 8 conditional functions (all enterprise): IFS, SWITCH, SUMIF, SUMIFS, COUNTIF, COUNTIFS, AVERAGEIF, AVERAGEIFS
+# All 8 conditional functions: IFS, SWITCH, SUMIF, SUMIFS, COUNTIF, COUNTIFS, AVERAGEIF, AVERAGEIFS
 
 _forge_version: "5.0.0"
 
@@ -67,7 +67,7 @@ products:
 
 assumptions:
   # ═══════════════════════════════════════════════════════════════════════════
-  # IFS - Multiple conditions (enterprise)
+  # IFS - Multiple conditions
   # ═══════════════════════════════════════════════════════════════════════════
   test_ifs_first_true:
     value: null
@@ -96,7 +96,7 @@ assumptions:
     expected: 3
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # SWITCH - Switch case (enterprise)
+  # SWITCH - Switch case
   # ═══════════════════════════════════════════════════════════════════════════
   test_switch_first:
     value: null
@@ -125,7 +125,7 @@ assumptions:
     expected: 2
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # SUMIF - Sum with condition (enterprise)
+  # SUMIF - Sum with condition
   # ═══════════════════════════════════════════════════════════════════════════
   test_sumif_north:
     value: null
@@ -173,7 +173,7 @@ assumptions:
     expected: 0
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # SUMIFS - Sum with multiple conditions (enterprise)
+  # SUMIFS - Sum with multiple conditions
   # ═══════════════════════════════════════════════════════════════════════════
   test_sumifs_north_active:
     value: null
@@ -201,7 +201,7 @@ assumptions:
     expected: 4000
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # COUNTIF - Count with condition (enterprise)
+  # COUNTIF - Count with condition
   # ═══════════════════════════════════════════════════════════════════════════
   test_countif_north:
     value: null
@@ -244,7 +244,7 @@ assumptions:
     expected: 1
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # COUNTIFS - Count with multiple conditions (enterprise)
+  # COUNTIFS - Count with multiple conditions
   # ═══════════════════════════════════════════════════════════════════════════
   test_countifs_north_active:
     value: null
@@ -272,7 +272,7 @@ assumptions:
     expected: 2
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # AVERAGEIF - Average with condition (enterprise)
+  # AVERAGEIF - Average with condition
   # ═══════════════════════════════════════════════════════════════════════════
   test_averageif_north:
     value: null
@@ -305,7 +305,7 @@ assumptions:
     expected: 1107.14  # >=500: (1000+500+750+2000+1500+1200+800)/7 = 1107.14
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # AVERAGEIFS - Average with multiple conditions (enterprise)
+  # AVERAGEIFS - Average with multiple conditions
   # ═══════════════════════════════════════════════════════════════════════════
   test_averageifs_north_active:
     value: null

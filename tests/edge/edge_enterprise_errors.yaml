@@ -1,6 +1,5 @@
-# E2E Enterprise Function Error Edge Cases
+# E2E Function Error Edge Cases
 # Tests error handling for VARIANCE and BREAKEVEN functions
-# These are enterprise-only features disabled in demo mode
 
 _forge_version: "1.0.0"
 

@@ -1,7 +1,6 @@
 # E2E Aggregation Function Tests
 # Complete coverage of all 14 aggregation functions
-# Demo: SUM, AVERAGE, MIN, MAX, COUNT (5)
-# Enterprise: AVG, COUNTA, COUNTUNIQUE, PRODUCT, LARGE, SMALL, MAXIFS, MINIFS, RANK.EQ (9)
+# SUM, AVERAGE, MIN, MAX, COUNT, AVG, COUNTA, COUNTUNIQUE, PRODUCT, LARGE, SMALL, MAXIFS, MINIFS, RANK.EQ
 
 _forge_version: "5.0.0"
 
@@ -100,7 +99,7 @@ assumptions:
     expected: 17.5
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # AVG - Alias for AVERAGE (Enterprise function)
+  # AVG - Alias for AVERAGE
   # ═══════════════════════════════════════════════════════════════════════════
   avg_basic:
     value: null
@@ -217,7 +216,7 @@ assumptions:
     expected: 4
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # COUNTA - Count non-empty values (Enterprise function)
+  # COUNTA - Count non-empty values
   # ═══════════════════════════════════════════════════════════════════════════
   counta_all:
     value: null
@@ -250,10 +249,10 @@ assumptions:
     expected: 1
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # COUNTUNIQUE - Count unique values (Enterprise function)
+  # COUNTUNIQUE - Count unique values
   # unique_data.values: [10, 20, 10, 30, 20, 40, 10, 50, 30] => 5 unique (10,20,30,40,50)
   # ═══════════════════════════════════════════════════════════════════════════
-  # COUNTUNIQUE - Count unique values (Enterprise function)
+  # COUNTUNIQUE - Count unique values
   # Note: forge COUNTUNIQUE takes a single array/range argument
   countunique_basic:
     value: null
@@ -276,7 +275,7 @@ assumptions:
     expected: 9
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # PRODUCT - Product of values (Enterprise function)
+  # PRODUCT - Product of values
   # ═══════════════════════════════════════════════════════════════════════════
   product_basic:
     value: null
@@ -319,7 +318,7 @@ assumptions:
     expected: 1
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # LARGE - Nth largest value (Enterprise function)
+  # LARGE - Nth largest value
   # agg_data.values: [10, 50, 30, 70, 20, 90, 40, 60, 80]
   # Sorted descending: [90, 80, 70, 60, 50, 40, 30, 20, 10]
   # ═══════════════════════════════════════════════════════════════════════════
@@ -349,7 +348,7 @@ assumptions:
     expected: 10
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # SMALL - Nth smallest value (Enterprise function)
+  # SMALL - Nth smallest value
   # agg_data.values: [10, 50, 30, 70, 20, 90, 40, 60, 80]
   # Sorted ascending: [10, 20, 30, 40, 50, 60, 70, 80, 90]
   # ═══════════════════════════════════════════════════════════════════════════
@@ -379,7 +378,7 @@ assumptions:
     expected: 90
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # RANK.EQ - Rank of value in array (Enterprise function)
+  # RANK.EQ - Rank of value in array
   # rank_data.scores: [85, 90, 78, 92, 88, 85, 95]
   # Descending ranks: 95=1, 92=2, 90=3, 88=4, 85=5 (tied), 78=7
   # Ascending ranks: 78=1, 85=2 (tied), 88=4, 90=5, 92=6, 95=7
@@ -441,7 +440,7 @@ assumptions:
     expected: 3
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # RANK - Alias for RANK.EQ (Enterprise function)
+  # RANK - Alias for RANK.EQ
   # ═══════════════════════════════════════════════════════════════════════════
   rank_alias_desc:
     value: null
@@ -459,7 +458,7 @@ assumptions:
     expected: 5
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # MAXIFS - Max with conditions (Enterprise function)
+  # MAXIFS - Max with conditions
   # sales_data:
   #   amount: [100, 200, 150, 300, 250, 180, 220, 400, 120, 350]
   #   region: [East, West, East, West, East, West, East, West, East, West]
@@ -517,7 +516,7 @@ assumptions:
     expected: 250
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # MINIFS - Min with conditions (Enterprise function)
+  # MINIFS - Min with conditions
   # ═══════════════════════════════════════════════════════════════════════════
   minifs_region_east:
     value: null

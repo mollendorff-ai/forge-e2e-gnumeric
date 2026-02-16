@@ -1,6 +1,6 @@
 # E2E Math Function Tests - Complete Coverage
 # Validates forge calculations against Gnumeric
-# Total: 20 functions (16 demo + 4 enterprise)
+# Total: 20 functions
 
 _forge_version: "1.0.0"
 
@@ -248,7 +248,7 @@ assumptions:
     expected: 1024
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # POW - Alias for POWER (enterprise)
+  # POW - Alias for POWER
   # ═══════════════════════════════════════════════════════════════════════════
   pow_squared:
     value: null
@@ -447,7 +447,7 @@ assumptions:
     expected: 9.8696
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # E - Euler's number (enterprise)
+  # E - Euler's number
   # ═══════════════════════════════════════════════════════════════════════════
   e_value:
     value: null
@@ -465,7 +465,7 @@ assumptions:
     expected: 7.38906
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # DEGREES - Radians to degrees (enterprise)
+  # DEGREES - Radians to degrees
   # ═══════════════════════════════════════════════════════════════════════════
   degrees_zero:
     value: null
@@ -498,7 +498,7 @@ assumptions:
     expected: -90
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # RADIANS - Degrees to radians (enterprise)
+  # RADIANS - Degrees to radians
   # ═══════════════════════════════════════════════════════════════════════════
   radians_zero:
     value: null

@@ -1,6 +1,6 @@
 # E2E Statistical Function Tests
 # Complete coverage of all 8 statistical functions
-# All Enterprise: MEDIAN, VAR.S, VARP, STDEV.S, STDEVP, PERCENTILE, QUARTILE, CORREL
+# Functions covered: MEDIAN, VAR.S, VARP, STDEV.S, STDEVP, PERCENTILE, QUARTILE, CORREL
 
 _forge_version: "5.0.0"
 
@@ -43,7 +43,7 @@ edge_data:
 
 assumptions:
   # ═══════════════════════════════════════════════════════════════════════════
-  # MEDIAN - Middle value (Enterprise function)
+  # MEDIAN - Middle value
   # ═══════════════════════════════════════════════════════════════════════════
   median_odd_count:
     value: null
@@ -86,7 +86,7 @@ assumptions:
     expected: 5.5
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # VAR.S - Sample variance (Enterprise function)
+  # VAR.S - Sample variance
   # Variance measures spread of data
   # ═══════════════════════════════════════════════════════════════════════════
   var_s_basic:
@@ -120,7 +120,7 @@ assumptions:
     expected: 1.6667
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # VAR - Alias for VAR.S (Enterprise function)
+  # VAR - Alias for VAR.S
   # ═══════════════════════════════════════════════════════════════════════════
   var_alias_basic:
     value: null
@@ -133,7 +133,7 @@ assumptions:
     expected: 2.5
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # VARP - Population variance (Enterprise function)
+  # VARP - Population variance
   # Population variance uses N instead of N-1
   # ═══════════════════════════════════════════════════════════════════════════
   varp_basic:
@@ -167,7 +167,7 @@ assumptions:
     expected: 2
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # STDEV.S - Sample standard deviation (Enterprise function)
+  # STDEV.S - Sample standard deviation
   # Standard deviation is square root of variance
   # ═══════════════════════════════════════════════════════════════════════════
   stdev_s_basic:
@@ -201,7 +201,7 @@ assumptions:
     expected: 1.5811
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # STDEV - Alias for STDEV.S (Enterprise function)
+  # STDEV - Alias for STDEV.S
   # ═══════════════════════════════════════════════════════════════════════════
   stdev_alias_basic:
     value: null
@@ -214,7 +214,7 @@ assumptions:
     expected: 1.5811
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # STDEVP - Population standard deviation (Enterprise function)
+  # STDEVP - Population standard deviation
   # Population stdev uses N instead of N-1
   # ═══════════════════════════════════════════════════════════════════════════
   stdevp_basic:
@@ -248,7 +248,7 @@ assumptions:
     expected: 1.4142
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # PERCENTILE - Value at percentile k (Enterprise function)
+  # PERCENTILE - Value at percentile k
   # PERCENTILE(array, k) where k is 0-1 (0=0%, 0.5=50%, 1=100%)
   # percentile_data.simple: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
   # ═══════════════════════════════════════════════════════════════════════════
@@ -310,7 +310,7 @@ assumptions:
     expected: 30
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # QUARTILE - Quartile value (Enterprise function)
+  # QUARTILE - Quartile value
   # QUARTILE(array, quart) where quart: 0=min, 1=Q1, 2=median, 3=Q3, 4=max
   # stats_data.basic: [10, 20, 30, 40, 50]
   # ═══════════════════════════════════════════════════════════════════════════
@@ -388,7 +388,7 @@ assumptions:
     expected: 40
 
   # ═══════════════════════════════════════════════════════════════════════════
-  # CORREL - Correlation coefficient (Enterprise function)
+  # CORREL - Correlation coefficient
   # Returns value between -1 (perfect negative) and 1 (perfect positive)
   # 0 means no correlation
   # ═══════════════════════════════════════════════════════════════════════════

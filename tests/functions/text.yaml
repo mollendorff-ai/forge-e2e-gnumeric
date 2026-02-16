@@ -1,7 +1,7 @@
 # E2E Text Function Tests
 # Validated against Gnumeric
 # Note: Text functions return strings - we wrap with LEN for numeric validation
-# Note: String literals with letters (e.g., "Hello") require enterprise schema
+# Note: String literals with letters (e.g., "Hello") require schema support
 
 _forge_version: "1.0.0"
 
@@ -269,7 +269,7 @@ assumptions:
     expected: 100
 
   # ══════════════════════════════════════════════════════════════════════════
-  # CONCATENATE - Alias for CONCAT (Enterprise)
+  # CONCATENATE - Alias for CONCAT
   # ══════════════════════════════════════════════════════════════════════════
   test_concatenate_two:
     value: null
@@ -287,7 +287,7 @@ assumptions:
     expected: 11
 
   # ══════════════════════════════════════════════════════════════════════════
-  # VALUE - Convert text to number (Enterprise)
+  # VALUE - Convert text to number
   # ══════════════════════════════════════════════════════════════════════════
   test_value_integer:
     value: null
@@ -320,7 +320,7 @@ assumptions:
     expected: 123
 
   # ══════════════════════════════════════════════════════════════════════════
-  # FIND - Find text position (case sensitive) (Enterprise)
+  # FIND - Find text position (case sensitive)
   # ══════════════════════════════════════════════════════════════════════════
   test_find_basic:
     value: null
@@ -348,7 +348,7 @@ assumptions:
     expected: 3
 
   # ══════════════════════════════════════════════════════════════════════════
-  # SEARCH - Find text position (case insensitive) (Enterprise)
+  # SEARCH - Find text position (case insensitive)
   # ══════════════════════════════════════════════════════════════════════════
   test_search_basic:
     value: null
@@ -376,7 +376,7 @@ assumptions:
     expected: 4
 
   # ══════════════════════════════════════════════════════════════════════════
-  # REPLACE - Replace characters (Enterprise)
+  # REPLACE - Replace characters
   # ══════════════════════════════════════════════════════════════════════════
   test_replace_basic:
     value: null
@@ -409,7 +409,7 @@ assumptions:
     expected: 3
 
   # ══════════════════════════════════════════════════════════════════════════
-  # SUBSTITUTE - Substitute text (Enterprise)
+  # SUBSTITUTE - Substitute text
   # ══════════════════════════════════════════════════════════════════════════
   test_substitute_basic:
     value: null
@@ -442,7 +442,7 @@ assumptions:
     expected: 3
 
   # ══════════════════════════════════════════════════════════════════════════
-  # TEXT - Format number as text (Enterprise)
+  # TEXT - Format number as text
   # ══════════════════════════════════════════════════════════════════════════
   test_text_basic:
     value: null
