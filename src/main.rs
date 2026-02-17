@@ -1,12 +1,12 @@
 //! forge-e2e-gnumeric: CLI entry point.
 //!
 //! Validates forge against Gnumeric (Excel-compatible functions).
+//! Outputs results in TAP (Test Anything Protocol) version 14 format.
 
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::time::Instant;
 
 use clap::Parser;
-use colored::Colorize;
 
 use forge_e2e_gnumeric::engine::GnumericEngine;
 use forge_e2e_gnumeric::runner::TestRunner;
@@ -17,7 +17,7 @@ use forge_e2e_gnumeric::types::TestResult;
 #[command(about = "E2E validation of forge against Gnumeric")]
 #[command(version)]
 struct Cli {
-    /// Run all tests (headless mode with colored output).
+    /// Run all tests.
     #[arg(long)]
     all: bool,
 
@@ -40,6 +40,7 @@ fn main() -> anyhow::Result<()> {
     // Find forge binary
     let forge_binary = cli
         .binary
+        .clone()
         .or_else(|| std::env::var("FORGE_BIN").ok().map(PathBuf::from))
         .or_else(|| {
             let relative = PathBuf::from("../forge/target/release/forge");
@@ -66,61 +67,57 @@ fn main() -> anyhow::Result<()> {
         )
     })?;
 
-    println!("{}", "forge-e2e-gnumeric".bold());
-    println!("  Forge: {}", forge_binary.display());
-    println!(
-        "  Engine: {} ({})",
-        GnumericEngine::name(),
-        engine.version()
-    );
-    println!("  Tests: {}", cli.tests.display());
-    println!();
-
     // Create runner
-    let runner = TestRunner::new(forge_binary, engine, cli.tests)?;
-
-    println!(
-        "Loaded {} tests ({} skipped)",
-        runner.test_cases().len(),
-        runner.skip_cases().len()
-    );
-    println!();
+    let runner = TestRunner::new(forge_binary.clone(), engine, cli.tests.clone())?;
 
     if cli.all {
-        run_all_mode(&runner, cli.batch)?;
+        run_all(&cli, &runner, &forge_binary);
     } else {
-        println!("Use --all to run all tests");
+        println!("# forge-e2e-gnumeric");
+        println!("# Use --all to run all tests");
+        println!(
+            "# {} tests loaded ({} skipped)",
+            runner.test_cases().len(),
+            runner.skip_cases().len()
+        );
     }
 
     Ok(())
 }
 
-#[allow(clippy::unnecessary_wraps)] // Result for consistent main() error handling
-fn run_all_mode(runner: &TestRunner, batch: bool) -> anyhow::Result<()> {
+fn run_all(cli: &Cli, runner: &TestRunner, forge_binary: &Path) {
+    let total = runner.total_tests();
+    let mode = if cli.batch { "batch" } else { "streaming" };
+
+    // TAP header: diagnostic comments then version and plan
+    println!("# forge-e2e-gnumeric");
+    println!("# Forge: {}", forge_binary.display());
+    println!(
+        "# Engine: {} (ssconvert)",
+        GnumericEngine::name()
+    );
+    println!("# Tests: {}", cli.tests.display());
+    println!("# Mode: {mode}");
+    println!("TAP version 14");
+    println!("1..{total}");
+
     let start = Instant::now();
 
-    let results = if batch {
-        println!("{}", "Running in batch mode...".cyan());
-        runner.run_batch()
+    let results = if cli.batch {
+        let results = runner.run_batch();
+        for (n, result) in results.iter().enumerate() {
+            print_tap_line(n + 1, result);
+        }
+        results
     } else {
-        println!("{}", "Running tests...".cyan());
+        let mut n: usize = 1;
         runner.run_all_streaming(|result| {
-            print_result(result);
+            print_tap_line(n, result);
+            n += 1;
         })
     };
 
     let elapsed = start.elapsed();
-
-    // If batch mode, print results now
-    if batch {
-        for result in &results {
-            print_result(result);
-        }
-    }
-
-    // Summary
-    println!();
-    println!("{}", "═".repeat(60));
 
     let passed = results.iter().filter(|r| r.is_pass()).count();
     let failed = results.iter().filter(|r| r.is_fail()).count();
@@ -129,56 +126,42 @@ fn run_all_mode(runner: &TestRunner, batch: bool) -> anyhow::Result<()> {
         .filter(|r| matches!(r, TestResult::Skip { .. }))
         .count();
 
-    if failed == 0 {
-        println!(
-            "  {} {} passed, {} skipped in {:.2}s",
-            "✓".green(),
-            passed.to_string().green(),
-            skipped,
-            elapsed.as_secs_f64()
-        );
-    } else {
-        println!(
-            "  {} {} passed, {} failed, {} skipped in {:.2}s",
-            "✗".red(),
-            passed,
-            failed.to_string().red(),
-            skipped,
-            elapsed.as_secs_f64()
-        );
-    }
-
-    println!("{}", "═".repeat(60));
+    println!(
+        "# {passed} passed, {failed} failed, {skipped} skipped in {:.2}s",
+        elapsed.as_secs_f64()
+    );
 
     if failed > 0 {
         std::process::exit(1);
     }
-
-    Ok(())
 }
 
-fn print_result(result: &TestResult) {
+fn print_tap_line(n: usize, result: &TestResult) {
     match result {
         TestResult::Pass { name, .. } => {
-            println!("  {} {}", "✓".green(), name);
+            println!("ok {n} - {name}");
         }
         TestResult::Fail {
             name,
+            formula,
             expected,
             actual,
             error,
-            ..
         } => {
-            println!("  {} {}", "✗".red(), name.red());
+            println!("not ok {n} - {name}");
+            println!("  ---");
+            println!("  formula: \"{formula}\"");
+            println!("  expected: {expected}");
             if let Some(actual) = actual {
-                println!("      expected: {expected}, actual: {actual}");
+                println!("  actual: {actual}");
             }
             if let Some(error) = error {
-                println!("      error: {error}");
+                println!("  error: \"{error}\"");
             }
+            println!("  ...");
         }
         TestResult::Skip { name, reason } => {
-            println!("  {} {} ({})", "○".yellow(), name.dimmed(), reason.dimmed());
+            println!("ok {n} - {name} # SKIP {reason}");
         }
     }
 }

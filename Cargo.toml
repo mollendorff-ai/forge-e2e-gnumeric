@@ -39,9 +39,6 @@ serde_yaml_ng = "0.10"
 # Temp files for XLSX/CSV
 tempfile = "3.23"
 
-# Colored output
-colored = "3.0"
-
 # Error handling
 anyhow = "1.0"
 thiserror = "2.0"

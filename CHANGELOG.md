@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2026-02-16
+
+### Changed
+
+- **Replace colored TUI with TAP v14 output**
+  - Removed `colored` crate dependency
+  - Output now uses TAP (Test Anything Protocol) version 14 format
+  - YAML diagnostic blocks on failures (formula, expected, actual, error)
+  - `# SKIP reason` directive for skipped tests
+  - Diagnostic comments for config (forge path, engine version, test dir, mode)
+  - Summary as TAP comment after results
+  - Machine-parseable output enables CI/CD integration and downstream tooling
+
 ## [1.0.1] - 2026-01-24
 
 ### Changed
