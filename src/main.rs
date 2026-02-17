@@ -17,10 +17,6 @@ use forge_e2e_gnumeric::types::TestResult;
 #[command(about = "E2E validation of forge against Gnumeric")]
 #[command(version)]
 struct Cli {
-    /// Run all tests.
-    #[arg(long)]
-    all: bool,
-
     /// Path to test specs directory.
     #[arg(short, long, default_value = "tests")]
     tests: PathBuf,
@@ -67,20 +63,9 @@ fn main() -> anyhow::Result<()> {
         )
     })?;
 
-    // Create runner
+    // Create runner and execute
     let runner = TestRunner::new(forge_binary.clone(), engine, cli.tests.clone())?;
-
-    if cli.all {
-        run_all(&cli, &runner, &forge_binary);
-    } else {
-        println!("# forge-e2e-gnumeric");
-        println!("# Use --all to run all tests");
-        println!(
-            "# {} tests loaded ({} skipped)",
-            runner.test_cases().len(),
-            runner.skip_cases().len()
-        );
-    }
+    run_all(&cli, &runner, &forge_binary);
 
     Ok(())
 }
