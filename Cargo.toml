@@ -2,7 +2,7 @@
 name = "mollendorff-forge-e2e-gnumeric"
 version = "1.0.0"
 edition = "2021"
-authors = ["Möllendorff Group Inc. <admin@mollendorff.ai>"]
+authors = ["Möllendorff AI <admin@mollendorff.ai>"]
 description = "E2E validation of forge against Gnumeric (Excel-compatible functions)"
 repository = "https://github.com/mollendorff-ai/forge-e2e-gnumeric"
 homepage = "https://github.com/mollendorff-ai/forge"
