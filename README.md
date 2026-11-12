@@ -1,3 +1,5 @@
+> **This repository is archived (2026-11-12).** The suite now lives in Forge's own repository, in [`validation/gnumeric`](https://github.com/mollendorff-ai/forge/tree/main/validation/gnumeric), with this repository's history ([ADR-057](https://github.com/mollendorff-ai/forge/blob/main/docs/architecture/ADR-057-VALIDATION-IN-THIS-REPOSITORY.md)). Changes go there.
+
 # forge-e2e-gnumeric
 
 E2E validation of [Forge](https://github.com/mollendorff-ai/forge) Excel-compatible functions against Gnumeric.
